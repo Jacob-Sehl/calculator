@@ -108,19 +108,43 @@ function glow(){
 function addBtnListeners(){
     // Adds Click Event listeners to all number buttons
     numberButtons.forEach(button => {
-        button.addEventListener('click', display);
+        button.addEventListener('click', (e) => {
+            e.target.classList.add('clicked');
+            setTimeout(() => {
+                e.target.classList.remove('clicked');
+            }, 100);
+            display(e);
+        });
     });
 
     // Adds Click Event listeners to all operator buttons
     operatorButtons.forEach(button => {
-        button.addEventListener('click', display);
+        button.addEventListener('click', (e) => {
+            e.target.classList.add('clicked');
+            setTimeout(() => {
+                e.target.classList.remove('clicked');
+            }, 100);
+            display(e);
+        });
     });
 
     // Adds Click Event listener to the clear button
-    clearButton.addEventListener('click', clear);
+    clearButton.addEventListener('click', (e) => {
+        e.target.classList.add('clicked');
+        setTimeout(() => {
+            e.target.classList.remove('clicked');
+        }, 100);
+        clear();
+    });
 
-    //  Adds click listener for the delete button
-    deleteButton.addEventListener('click', deleteFromScreen);
+    // Adds click listener for the delete button
+    deleteButton.addEventListener('click', (e) => {
+        e.target.classList.add('clicked');
+        setTimeout(() => {
+            e.target.classList.remove('clicked');
+        }, 100);
+        deleteFromScreen();
+    });
 }
 
 function display(event) {
