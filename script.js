@@ -31,7 +31,55 @@ const operatorButtons = document.querySelectorAll(".operator");
 const resultButton = document.querySelector('.result');
 
 function operate(){
+    const equation = calcScreen.textContent;
+    const parts = equation.split(/([÷x+\-])/g).filter(part => part !== '');
 
+    const numbers = [];
+    const operands = [];
+
+    parts.forEach(part => {
+        if(part.match(/([÷x+\-])/)) {
+            operands.push(part);
+        } else {
+            numbers.push(parseFloat(part));
+        }
+    });
+
+    //calculates the result of the equation following bedmas
+    let result = calculate(numbers, operands);
+
+    //Display the result
+    calcScreen.textContent = result;
+}
+
+function calculate(numbers, operands) {
+    // First handle multiplication and division
+    let i = 0;
+    while (i < operands.length) {
+        if (operands[i] === '÷' || operands[i] === 'x') {
+            let multDivResult = operands[i] === '÷' 
+                ? divide(numbers[i], numbers[i + 1])
+                : multiply(numbers[i], numbers[i + 1]);
+            
+            numbers.splice(i, 2, multDivResult);
+            operands.splice(i, 1);
+        } else {
+            i++;
+        }
+    }
+    
+    // Then handle addition and subtraction
+    i = 0;
+    while (i < operands.length) {
+        let addSubResult = operands[i] === '+' 
+            ? add(numbers[i], numbers[i + 1])
+            : subtract(numbers[i], numbers[i + 1]);
+        
+        numbers.splice(i, 2, addSubResult);
+        operands.splice(i, 1);
+    }
+    
+    return numbers[0];
 }
 
 /**
@@ -179,5 +227,6 @@ function deleteFromScreen(){
     calcScreen.textContent = calcScreen.textContent.slice(0,-1); // Removes the last character inputted in the screen
 }
 
+// BEGINNING OF PROGRAM
 addBtnListeners();
 glow();
