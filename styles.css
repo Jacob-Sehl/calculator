@@ -35,11 +35,30 @@ main {
 }
 
 .screen {
-    height: 100px;
+    height: auto;
+    min-height: 100px;
     margin-top: 15px;
+    padding: 10px;
     border: 2px solid;
     border-color: white;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.screenContent {
+    font-size: xx-large;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    word-wrap: break-word;
+    word-break: break-all;
+    width: 100%;
+    text-align: right;
+    margin: 0;
 }
 
 .bigButtons {

@@ -23,7 +23,7 @@
  */
 
 // DOM VARIABLES
-const calcScreen = document.querySelector(".screen");
+const calcScreen = document.querySelector(".screenContent");
 const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
 const numberButtons = document.querySelectorAll(".num");
@@ -105,12 +105,36 @@ function glow(){
     });
 }
 
-function display(){
+function addBtnListeners(){
+    // Adds Click Event listeners to all number buttons
+    numberButtons.forEach(button => {
+        button.addEventListener('click', display);
+    });
 
+    // Adds Click Event listeners to all operator buttons
+    operatorButtons.forEach(button => {
+        button.addEventListener('click', display);
+    });
+
+    // Adds Click Event listener to the clear button
+    clearButton.addEventListener('click', clear);
+
+    //  Adds click listener for the delete button
+    deleteButton.addEventListener('click', deleteFromScreen);
 }
 
-function clear(){
-
+function display(event) {
+    const btn = event.target;
+    calcScreen.textContent += btn.textContent;
 }
 
+function clear() {
+    calcScreen.textContent = '';
+}
+
+function deleteFromScreen(){
+    calcScreen.textContent = calcScreen.textContent.slice(0,-1);
+}
+
+addBtnListeners();
 glow();
