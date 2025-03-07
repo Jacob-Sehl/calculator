@@ -87,3 +87,7 @@ footer {
     justify-content: center;
 }
 
+.glow {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}
+

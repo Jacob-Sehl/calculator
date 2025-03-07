@@ -33,24 +33,76 @@ function operate(){
 
 }
 
-function add(){
-
+/**
+ * @description Adds two numbers
+ * @param {number} num1 
+ * @param {number} num2
+ * @returns the sum of num1 and num2
+ */
+function add(num1, num2){
+    return num1 + num2;
 }
 
-function subtract(){
-
+/**
+ * @description Subtracts a number by another
+ * @param {number} num1
+ * @param {number} num2 
+ * @returns num1 subtracted by num2
+ */
+function subtract(num1, num2){
+    return num1 - num2;
 }
 
-function multiply(){
-
+/**
+ * @description Multiplies a number by another
+ * @param {number} num1 
+ * @param {number} num2 
+ * @returns num1 multiplied by num2
+ */
+function multiply(num1, num2){
+    return num1 * num2;
 }
 
-function divide(){
-
+/**
+ * @description Divided a number by another
+ * @param {number} num1
+ * @param {number} num2 
+ * @returns {number} num1 divided by num2
+ */
+function divide(num1, num2){
+    return num1 / num2;
 }
 
 function glow(){
+    numberButtons.forEach(button => {
+        button.addEventListener('mouseover', () => {
+            button.classList.add("glow");
+        });
+        button.addEventListener('mouseout', () => {
+            button.classList.remove('glow');
+        });
+    });
+    operatorButtons.forEach(button => {
+        button.addEventListener('mouseover', () => {
+            button.classList.add("glow");
+        });
+        button.addEventListener('mouseout', () => {
+            button.classList.remove('glow');
+        });
+    });
+    clearButton.addEventListener('mouseover', () => {
+        clearButton.classList.add('glow');
+    });
+    clearButton.addEventListener('mouseout', () => {
+        clearButton.classList.remove('glow');
+    });
 
+    deleteButton.addEventListener('mouseover', () => {
+        deleteButton.classList.add("glow");
+    });
+    deleteButton.addEventListener('mouseout', () => {
+        deleteButton.classList.remove('glow');
+    });
 }
 
 function display(){
@@ -60,3 +112,5 @@ function display(){
 function clear(){
 
 }
+
+glow();
