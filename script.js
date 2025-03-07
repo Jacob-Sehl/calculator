@@ -30,13 +30,18 @@ const numberButtons = document.querySelectorAll(".num");
 const operatorButtons = document.querySelectorAll(".operator");
 const resultButton = document.querySelector('.result');
 
+/**
+ * @description Parses the equation into numbers and operands and calculates the result
+ */
 function operate(){
+    //Variable Declaration
     const equation = calcScreen.textContent;
     const parts = equation.split(/([÷x+\-])/g).filter(part => part !== '');
 
-    const numbers = [];
-    const operands = [];
+    const numbers = [];     // Array of all numbers in the equation
+    const operands = [];    // Array of all opperands in the equation
 
+    // Separats the operands and the numbers into their own arrays
     parts.forEach(part => {
         if(part.match(/([÷x+\-])/)) {
             operands.push(part);
@@ -55,31 +60,31 @@ function operate(){
 function calculate(numbers, operands) {
     // First handle multiplication and division
     let i = 0;
-    while (i < operands.length) {
-        if (operands[i] === '÷' || operands[i] === 'x') {
-            let multDivResult = operands[i] === '÷' 
-                ? divide(numbers[i], numbers[i + 1])
-                : multiply(numbers[i], numbers[i + 1]);
+    while (i < operands.length) {                           // For each operand in the array
+        if (operands[i] === '÷' || operands[i] === 'x') {   // Checks if the operand is multiplication or division
+            let multDivResult = operands[i] === '÷'         // Checks if operation is division
+                ? divide(numbers[i], numbers[i + 1])        // divides the numbers before and after the dividing operand
+                : multiply(numbers[i], numbers[i + 1]);     // otherwise multiplies the numbers before and after the operand
             
-            numbers.splice(i, 2, multDivResult);
-            operands.splice(i, 1);
+            numbers.splice(i, 2, multDivResult);    // replaces old numbers with the results of the multiplication and division
+            operands.splice(i, 1);                  // Removes the used operands
         } else {
-            i++;
+            i++;        // ignore - and + and move on to next operand
         }
     }
     
     // Then handle addition and subtraction
     i = 0;
-    while (i < operands.length) {
-        let addSubResult = operands[i] === '+' 
-            ? add(numbers[i], numbers[i + 1])
-            : subtract(numbers[i], numbers[i + 1]);
+    while (i < operands.length) {                   // For each operand in the array
+        let addSubResult = operands[i] === '+'      // Check if the operand is +
+            ? add(numbers[i], numbers[i + 1])       // Adds the numbers before and after the operand
+            : subtract(numbers[i], numbers[i + 1]); // Otherwise subtracts the numbers before and after the operand
         
-        numbers.splice(i, 2, addSubResult);
-        operands.splice(i, 1);
+        numbers.splice(i, 2, addSubResult);     // replace old numbers with the result of the addition/subtraction
+        operands.splice(i, 1);                  // removes the used opperands
     }
     
-    return numbers[0];
+    return numbers[0];  // the number in index 1 is the only one left and our result woohoo
 }
 
 /**
@@ -163,6 +168,9 @@ function glow(){
     })
 }
 
+/**
+ * @description Adds responsive animations to buttons and on click sets executes their respective functions
+ */
 function addBtnListeners(){
     // Adds Click Event listeners to all number buttons
     numberButtons.forEach(button => {
@@ -204,29 +212,39 @@ function addBtnListeners(){
         deleteFromScreen();
     });
 
-    // Adds click listener for the delete button
+    // Adds click listener for the result button
     resultButton.addEventListener('click', (e) => {
         e.target.classList.add('clicked');
-        setTimeout(() => {
+        setTimeout(() => {                          // Animation needs to be short to ilustrate that button has been clicked
             e.target.classList.remove('clicked');
         }, 100);
-        operate();
+        operate();  //computes the result of the equation in the screen
     });
 }
 
+/**
+ * @description sets the screen to display the result of a button press
+ * @param {event} event 
+ */
 function display(event) {
     const btn = event.target;
     calcScreen.textContent += btn.textContent;
 }
 
+/**
+ * @description Clears the calculator screen
+ */
 function clear() {
     calcScreen.textContent = '';
 }
 
+/**
+ * @description deletes the last inputted character in the calculator screen
+ */
 function deleteFromScreen(){
     calcScreen.textContent = calcScreen.textContent.slice(0,-1); // Removes the last character inputted in the screen
 }
 
 // BEGINNING OF PROGRAM
 addBtnListeners();
-glow();
+glow(); // Adds glow to buttons on mouseover
