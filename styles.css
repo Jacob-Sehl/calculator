@@ -1,15 +1,22 @@
 body {
     background-color: black;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    flex: 1;
     height: 100vh;
+}
+
+header {
+    color: white;
+    display: flex;
+    justify-content: center;
 }
 
 main {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 1;
 }
 
 .calculator {
@@ -71,5 +78,12 @@ button {
     flex: 1;
     min-width: 70px;
     height: 70px;
+}
+
+footer {
+    width: 100vw;
+    color: white;
+    display: flex;
+    justify-content: center;
 }
 
