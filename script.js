@@ -28,6 +28,7 @@ const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
 const numberButtons = document.querySelectorAll(".num");
 const operatorButtons = document.querySelectorAll(".operator");
+const resultButton = document.querySelector('.result');
 
 function operate(){
 
@@ -73,6 +74,9 @@ function divide(num1, num2){
     return num1 / num2;
 }
 
+/**
+ * @description Adds listeners to the buttons that add a glow style when mouseover
+ */
 function glow(){
     numberButtons.forEach(button => {
         button.addEventListener('mouseover', () => {
@@ -103,6 +107,12 @@ function glow(){
     deleteButton.addEventListener('mouseout', () => {
         deleteButton.classList.remove('glow');
     });
+    resultButton.addEventListener('mouseover', () => {
+        resultButton.classList.add("glow");
+    });
+    resultButton.addEventListener('mouseout', () => {
+        resultButton.classList.remove("glow");
+    })
 }
 
 function addBtnListeners(){
@@ -145,6 +155,15 @@ function addBtnListeners(){
         }, 100);
         deleteFromScreen();
     });
+
+    // Adds click listener for the delete button
+    resultButton.addEventListener('click', (e) => {
+        e.target.classList.add('clicked');
+        setTimeout(() => {
+            e.target.classList.remove('clicked');
+        }, 100);
+        operate();
+    });
 }
 
 function display(event) {
@@ -157,7 +176,7 @@ function clear() {
 }
 
 function deleteFromScreen(){
-    calcScreen.textContent = calcScreen.textContent.slice(0,-1);
+    calcScreen.textContent = calcScreen.textContent.slice(0,-1); // Removes the last character inputted in the screen
 }
 
 addBtnListeners();

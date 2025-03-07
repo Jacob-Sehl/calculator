@@ -106,6 +106,10 @@ footer {
     display: flex;
     justify-content: center;
 }
+footer a {
+    color: white;
+    text-decoration: none;
+}
 
 .glow {
     box-shadow: 0 0 10px rgba(255, 255, 255, 1);
